@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "993581954800",
+    "firebase_url": "https://nibbin-b3ebc.firebaseio.com",
+    "project_id": "nibbin-b3ebc",
+    "storage_bucket": "nibbin-b3ebc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993581954800:android:a20167795ed7d256297435",
+        "android_client_info": {
+          "package_name": "in.bluone.app.nibbin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993581954800-nbvbg49nsfeccv244n0tek3cn225b2tc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin",
+            "certificate_hash": "81a762379cb235dc11227cb8a2e38a28db9a1085"
+          }
+        },
+        {
+          "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP7W22uaow_LsnvahY3eoe-_d3dcqsXW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.bluone.app.nibbin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993581954800:android:9378d274fe200688297435",
+        "android_client_info": {
+          "package_name": "in.bluone.nibbin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993581954800-6cfum7226hahc3k9utemmhdql9f3pl2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.nibbin",
+            "certificate_hash": "81a762379cb235dc11227cb8a2e38a28db9a1085"
+          }
+        },
+        {
+          "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP7W22uaow_LsnvahY3eoe-_d3dcqsXW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.bluone.app.nibbin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

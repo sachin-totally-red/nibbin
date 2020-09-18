@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>993581954800-6cfum7226hahc3k9utemmhdql9f3pl2a.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDEe3raH02oHtUvexvqTNxbPs2teZchw3U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>993581954800</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>in.bluone.app.nibbin</string>
+	<key>PROJECT_ID</key>
+	<string>nibbin-b3ebc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nibbin-b3ebc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:993581954800:ios:fd1450f00823bcab297435</string>
+	<key>DATABASE_URL</key>
+	<string>https://nibbin-b3ebc.firebaseio.com</string>
+</dict>
+</plist>
