@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:nibbin_app/view/custom_widget/custom_radio.dart';
 import 'package:nibbin_app/view/custom_widget/report_news.dart';
 
@@ -54,7 +55,8 @@ class _MoreInfoReportingTileState extends State<MoreInfoReportingTile> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 14,
+                          fontSize: ScreenUtil()
+                              .setSp(14, allowFontScalingSelf: true),
                           color: Color(0xFF1A101F),
                           letterSpacing: 0.14,
                           height: 1.5,
@@ -80,7 +82,8 @@ class _MoreInfoReportingTileState extends State<MoreInfoReportingTile> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      fontSize: 12,
+                      fontSize:
+                          ScreenUtil().setSp(12, allowFontScalingSelf: true),
                       color: Color(0xFF636976),
                       letterSpacing: 0.4,
                       height: 1.3,

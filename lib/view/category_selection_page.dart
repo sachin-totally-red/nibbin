@@ -70,8 +70,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                 )
               : null,
           body: Container(
-            padding: const EdgeInsets.only(bottom: 35.0),
-            child: Column(
+            padding: const EdgeInsets.only(bottom: 30.0),
+            child: Stack(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +126,7 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                           if (snapshot.hasData) {
                             return Container(
                               padding: EdgeInsets.symmetric(horizontal: 15),
-                              height: screenSize.height * 0.65,
+                              height: screenSize.height * 0.75,
                               child: GridView.count(
                                 crossAxisSpacing: 16,
                                 mainAxisSpacing: 16,
@@ -159,66 +159,64 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                         }),
                   ],
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ButtonTheme(
-                      height: 35,
-                      minWidth: 72,
-                      child: RaisedButton(
-                        child: Text(
-                          "Done",
-                        ),
-                        textColor: Color(0xFF1A101F),
-                        onPressed: () async {
-                          /*if (selectedCategoryList.length > 2) {*/
-                          CategoryRepository _categoryRepository =
-                              CategoryRepository();
-                          await _categoryRepository
-                              .saveSelectedCategories(selectedCategoryList);
-                          if (widget.userAlreadyLoggedIn)
-                            await _categoryRepository.saveCategoriesToApi(
-                                categoryList: selectedCategoryList);
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ButtonTheme(
+                    height: 35,
+                    minWidth: 72,
+                    child: RaisedButton(
+                      child: Text(
+                        "Done",
+                      ),
+                      textColor: Color(0xFF1A101F),
+                      onPressed: () async {
+                        /*if (selectedCategoryList.length > 2) {*/
+                        CategoryRepository _categoryRepository =
+                            CategoryRepository();
+                        await _categoryRepository
+                            .saveSelectedCategories(selectedCategoryList);
+                        if (widget.userAlreadyLoggedIn)
+                          await _categoryRepository.saveCategoriesToApi(
+                              categoryList: selectedCategoryList);
 
-                          //Update firebase with selected categories
-                          final fireStoreDBRef = FirebaseFirestore.instance;
-                          final FirebaseMessaging _firebaseMessaging =
-                              FirebaseMessaging();
-                          String token = await _firebaseMessaging.getToken();
-                          List<int> categoriesList = List<int>();
-                          selectedCategoryList.forEach((element) {
-                            categoriesList.add(element.id);
-                          });
-                          await fireStoreDBRef
-                              .collection("pushtokens")
-                              .where('devtoken', isEqualTo: token)
-                              .get()
-                              .then((value) async {
-                            if (value.size > 0)
-                              await fireStoreDBRef
-                                  .collection("pushtokens")
-                                  .doc(value.docs.first.id)
-                                  .update({"categories": categoriesList});
-                          });
+                        //Update firebase with selected categories
+                        final fireStoreDBRef = FirebaseFirestore.instance;
+                        final FirebaseMessaging _firebaseMessaging =
+                            FirebaseMessaging();
+                        String token = await _firebaseMessaging.getToken();
+                        List<int> categoriesList = List<int>();
+                        selectedCategoryList.forEach((element) {
+                          categoriesList.add(element.id);
+                        });
+                        await fireStoreDBRef
+                            .collection("pushtokens")
+                            .where('devtoken', isEqualTo: token)
+                            .get()
+                            .then((value) async {
+                          if (value.size > 0)
+                            await fireStoreDBRef
+                                .collection("pushtokens")
+                                .doc(value.docs.first.id)
+                                .update({"categories": categoriesList});
+                        });
 
-                          await Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                screenSize: MediaQuery.of(context).size,
-                                selectedCategories: selectedCategoryList,
-                              ),
+                        await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(
+                              screenSize: MediaQuery.of(context).size,
+                              selectedCategories: selectedCategoryList,
                             ),
-                          );
-                          /* } else {
-                            categoryPageScaffoldKey.currentState.showSnackBar(
-                                Constants.showCategorySelectionLimitError());
-                          }*/
-                        },
-                        color: Color(0xFFFFFFFF),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
+                          ),
+                        );
+                        /* } else {
+                          categoryPageScaffoldKey.currentState.showSnackBar(
+                              Constants.showCategorySelectionLimitError());
+                        }*/
+                      },
+                      color: Color(0xFFFFFFFF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
                       ),
                     ),
                   ),

@@ -33,6 +33,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final _homePageScaffoldKey = GlobalKey<ScaffoldState>();
   final bloc = HomeBloc();
   ScrollController controller;
+  ScrollController _scrollController = ScrollController();
 
   void _scrollListener() async {
     print(controller.position.extentAfter);
@@ -90,6 +91,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               homePageScaffoldKey: _homePageScaffoldKey,
               homePageState: homePageState),
           body: NestedScrollView(
+//            controller: controller,
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
@@ -144,28 +146,34 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 stream: bloc.allPosts,
                 builder: (context, AsyncSnapshot<List<Post>> snapshot) {
                   if (snapshot.hasData) {
-                    return new ListView.builder(
-                        controller: controller,
-                        itemCount: snapshot.data.length + 1,
-                        itemBuilder: (context, int index) {
-                          if (index < snapshot.data.length) {
-                            if (snapshot.data[index].type == "news") {
-                              return PostCard(
-                                  homePage: widget,
-                                  post: snapshot.data[index],
-                                  homePageState: homePageState,
-                                  homePageScaffoldKey: _homePageScaffoldKey);
-                            } else if (snapshot.data[index].type ==
-                                "newsConsumed") {
-                              return NoPostLeftCard(widget: widget);
+                    return SingleChildScrollView(
+                      controller: controller,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data.length + 1,
+                          itemBuilder: (context, int index) {
+                            if (index < snapshot.data.length) {
+                              if (snapshot.data[index].type == "news") {
+                                return PostCard(
+                                    homePage: widget,
+                                    post: snapshot.data[index],
+                                    homePageState: homePageState,
+                                    homePageScaffoldKey: _homePageScaffoldKey);
+                              } else if (snapshot.data[index].type ==
+                                  "newsConsumed") {
+                                return NoPostLeftCard(widget: widget);
+                              }
+                              return RateUsCard(widget: widget);
+                            } else {
+                              return Container(
+                                padding: EdgeInsets.only(top: 10, bottom: 10),
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              );
                             }
-                            return RateUsCard(widget: widget);
-                          } else
-                            return Container(
-                              padding: EdgeInsets.only(top: 10, bottom: 10),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                        });
+                          }),
+                    );
                   } else if (snapshot.hasError) {
                     return Container(
                       height: widget.screenSize.height * 0.8,

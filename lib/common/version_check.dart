@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nibbin_app/view/connection_problem_page.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,13 +37,20 @@ Future versionCheck(context) async {
       print("Sab Okay hai bhai");
       return "Success";
     }
+  } /*on SocketException catch (_) {
+    print('not connected');
   } on FetchThrottledException catch (exception) {
     // Fetch throttled.
     print(exception);
-  } catch (exception) {
+  } */
+  catch (exception) {
     print(exception);
     print('Unable to fetch remote config. Cached or default values will be '
         'used');
+    await Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ConnectionProblemPage()),
+    );
   }
 }
 

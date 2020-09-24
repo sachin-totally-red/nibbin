@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:nibbin_app/common/constants.dart';
 import 'package:nibbin_app/model/report_news.dart';
 import 'package:nibbin_app/resource/report_news_repository.dart';
@@ -15,7 +16,8 @@ Future reportModalBottomSheet(
   List<Widget> widgetList = prepareReportNewsWidgetList(
       response, context, newsID, homePageScaffoldKey);
 
-  return await showModalBottomSheet(
+  return await showModalBottomSheet<dynamic>(
+      isScrollControlled: true,
       context: context,
       backgroundColor: Colors.transparent,
       builder: (BuildContext bc) {
@@ -45,9 +47,9 @@ prepareReportNewsWidgetList(
     leading: Text(
       'Why are you reporting this?',
       style: TextStyle(
-          fontSize: 14,
+          fontSize: ScreenUtil().setSp(14, allowFontScalingSelf: true),
           color: Color(0xFF111111),
-          letterSpacing: 0.14,
+          letterSpacing: 0.6,
           fontWeight: FontWeight.w600),
     ),
     trailing: Image.asset(
@@ -87,7 +89,7 @@ class ReportTypeTile extends StatelessWidget {
       leading: Text(
         reportType.typeTitle,
         style: TextStyle(
-            fontSize: 14,
+            fontSize: ScreenUtil().setSp(14, allowFontScalingSelf: true),
             color: Color(0xFF1A101F),
             letterSpacing: 0.14,
             fontWeight: FontWeight.w400),
@@ -111,7 +113,8 @@ Future _detailedReportModalBottomSheet(
     List<ReportSubType> reportSubTypeList,
     int newsID,
     GlobalKey<ScaffoldState> homePageScaffoldKey) async {
-  return await showModalBottomSheet(
+  return await showModalBottomSheet<dynamic>(
+    isScrollControlled: true,
     context: context,
     backgroundColor: Colors.transparent,
     builder: (BuildContext bc) {
@@ -144,7 +147,7 @@ class DetailedReportNewsPageState extends State<DetailedReportNewsPage> {
     List<Widget> widgetList = prepareDetailedReportWidgetList(context,
         widget.reportSubTypeList, widget.newsID, widget.homePageScaffoldKey);
     return Container(
-      padding: EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 16),
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 0, top: 16),
       decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),
           borderRadius: BorderRadius.only(
@@ -173,9 +176,9 @@ prepareDetailedReportWidgetList(
         Text(
           'Tell us a little more',
           style: TextStyle(
-              fontSize: 14,
+              fontSize: ScreenUtil().setSp(14, allowFontScalingSelf: true),
               color: Color(0xFF111111),
-              letterSpacing: 0.14,
+              letterSpacing: 0.4,
               fontWeight: FontWeight.w600),
         ),
         InkWell(
@@ -214,17 +217,20 @@ prepareDetailedReportWidgetList(
   widgetList.removeLast();
   widgetList.add(
     SizedBox(
-      height: 31,
+      height: ScreenUtil().setSp(31, allowFontScalingSelf: true),
     ),
   );
   widgetList.add(
     Center(
       child: ButtonTheme(
-        height: 35,
-        minWidth: 72,
+        height: ScreenUtil().setSp(35, allowFontScalingSelf: true),
+        minWidth: ScreenUtil().setSp(72, allowFontScalingSelf: true),
         child: RaisedButton(
           child: Text(
             "Done",
+            style: TextStyle(
+              fontSize: ScreenUtil().setSp(14, allowFontScalingSelf: true),
+            ),
           ),
           textColor: Color(0xFFFFFFFF),
           onPressed: () async {
@@ -249,6 +255,12 @@ prepareDetailedReportWidgetList(
           ),
         ),
       ),
+    ),
+  );
+
+  widgetList.add(
+    SizedBox(
+      height: 60,
     ),
   );
   return widgetList;

@@ -16,9 +16,9 @@ class HomeBloc {
 
   fetchAllPosts({int pageNumber = 1, bool bookmarkRemoved = false}) async {
     try {
-      if (pageNumber == 1) postCompleteList = List<Post>();
       String alreadyLoggedIn = await getStringValuesSF("googleID");
       if (!bookmarkRemoved) {
+        if (pageNumber == 1) postCompleteList = List<Post>();
         List<Post> postModel = await _repository.fetchAllPosts(pageNumber,
             selectedCategories: selectedCategoriesList);
         List<SavedBookmarks> bookmarkModel =

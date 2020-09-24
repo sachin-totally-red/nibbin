@@ -74,7 +74,7 @@ class NotificationNewsPage extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: Text(
-                                  news.id.toString(),
+                                  news.imageSourceName,
                                   style: TextStyle(
                                       color: Color(0xFFBDBDBD),
                                       fontSize: ScreenUtil().setSp(10,

@@ -53,11 +53,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    versionCheck(context).then((value) {
-      if (value == "Success") {
-        startTime(context);
-      }
-    });
+    try {
+      versionCheck(context).then((value) {
+        if (value == "Success") {
+          startTime(context);
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
     super.initState();
   }
 

@@ -62,12 +62,12 @@ class SavedBookmarks {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       columnPostID: postID,
-      columnImgSrc: imageSrc,
-      columnTitle: title,
-      columnStory: story,
-      columnLink: link,
-      columnType: type,
-      columnStoryDate: storyDate,
+      columnImgSrc: imageSrc ?? "",
+      columnTitle: title ?? "",
+      columnStory: story ?? "",
+      columnLink: link ?? "",
+      columnType: type ?? "",
+      columnStoryDate: storyDate ?? "",
     };
     if (id != null) {
       map[columnId] = id;

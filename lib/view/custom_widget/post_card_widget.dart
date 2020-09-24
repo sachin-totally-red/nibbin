@@ -58,7 +58,7 @@ class _PostCardState extends State<PostCard> {
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    widget.post.id.toString(),
+                    widget.post.imageSourceName,
                     style: TextStyle(
                         color: Color(0xFFBDBDBD),
                         fontSize:
@@ -67,7 +67,33 @@ class _PostCardState extends State<PostCard> {
                         height: 1.4),
                   ),
                 ),
-              )
+              ),
+              if (widget.post.bookmarked)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: RotationTransition(
+                    turns: AlwaysStoppedAnimation(180 / 360),
+                    child: Container(
+                      color: Color(0xFF1A101F),
+                      child: Image.asset(
+                        'assets/images/black_triangle.png',
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
+                  ),
+                ),
+              if (widget.post.bookmarked)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    child: Image.asset(
+                      'assets/images/fold.png',
+                      height: 24,
+                      width: 24,
+                    ),
+                  ),
+                ),
             ],
           ),
           Padding(
@@ -83,7 +109,7 @@ class _PostCardState extends State<PostCard> {
                   widget.post.title,
                   style: TextStyle(
                     fontSize:
-                        ScreenUtil().setSp(14, allowFontScalingSelf: true),
+                        ScreenUtil().setSp(15, allowFontScalingSelf: true),
                     fontWeight: FontWeight.w600,
                     height: 1.5,
                     letterSpacing: 0.5,
@@ -96,13 +122,13 @@ class _PostCardState extends State<PostCard> {
                   height: 14,
                 ),
                 Text(
-                  widget.post.shortDesc,
+                  widget.post.shortDesc ?? "",
                   style: TextStyle(
                     fontSize:
-                        ScreenUtil().setSp(12, allowFontScalingSelf: true),
-                    letterSpacing: 0.14,
-                    wordSpacing: 1.2,
-                    height: 1.4,
+                        ScreenUtil().setSp(13.5, allowFontScalingSelf: true),
+                    letterSpacing: 0.5,
+                    wordSpacing: 1.8,
+                    height: 1.5,
                     color: Color(0xFF1A101F),
                   ),
                 ),

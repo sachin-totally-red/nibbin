@@ -1,6 +1,7 @@
 class Post {
   int id;
   String imageSrc;
+  String imageSourceName;
   String title;
   String headline;
   String shortDesc;
@@ -12,6 +13,7 @@ class Post {
   Post.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         imageSrc = json['image_url'],
+        imageSourceName = json['imageSourceName'],
         title = json['title'],
         headline = json['headline'],
         link = json['link'],
@@ -23,6 +25,7 @@ class Post {
   Map<String, dynamic> toJson() => {
         if (id != null) 'id': id,
         if (imageSrc != null) 'image_url': imageSrc,
+        if (imageSourceName != null) 'imageSourceName': imageSourceName,
         if (title != null) 'title': title,
         if (headline != null) 'headline': headline,
         if (shortDesc != null) 'shortDesc': shortDesc,
@@ -34,6 +37,7 @@ class Post {
   Post(
       {this.id,
       this.imageSrc,
+      this.imageSourceName,
       this.title,
       this.headline,
       this.shortDesc,
