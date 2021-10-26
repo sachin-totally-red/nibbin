@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "993581954800-apjlqfslq84acismj6sium4bfqq7d428.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin",
+            "certificate_hash": "95b556379fc3c7884716c5602fb02377faf90f5b"
+          }
+        },
+        {
+          "client_id": "993581954800-u8oogeuogc5qe42ttncj8ctn9lb2h5vt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin",
+            "certificate_hash": "1dae5d5aa3e20e01f9ac35811e08104da30283d1"
+          }
+        },
+        {
           "client_id": "993581954800-nbvbg49nsfeccv244n0tek3cn225b2tc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -43,7 +59,69 @@
               "client_id": "993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "in.bluone.app.nibbin"
+                "bundle_id": "in.bluone.app.nibbin",
+                "app_store_id": "1532244186"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993581954800:android:3df12bc90e499197297435",
+        "android_client_info": {
+          "package_name": "in.bluone.app.nibbin.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993581954800-pdci6skvbmsrhqu4e84gghpeouvo17dc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin.news",
+            "certificate_hash": "81a762379cb235dc11227cb8a2e38a28db9a1085"
+          }
+        },
+        {
+          "client_id": "993581954800-q5ak8vtogni7dg9ksskak90ctf4mcep5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin.news",
+            "certificate_hash": "1dae5d5aa3e20e01f9ac35811e08104da30283d1"
+          }
+        },
+        {
+          "client_id": "993581954800-9sa7m0ccpa1tfmdfgtd4jd2j680cpim1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.bluone.app.nibbin.news",
+            "certificate_hash": "95b556379fc3c7884716c5602fb02377faf90f5b"
+          }
+        },
+        {
+          "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP7W22uaow_LsnvahY3eoe-_d3dcqsXW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993581954800-uvda3dhqpi6cfrkddbvfk1jo7in0r0q5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.bluone.app.nibbin",
+                "app_store_id": "1532244186"
               }
             }
           ]
@@ -87,7 +165,8 @@
               "client_id": "993581954800-i57lidp4isrf5i7ejs2u859r8j8898cu.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "in.bluone.app.nibbin"
+                "bundle_id": "in.bluone.app.nibbin",
+                "app_store_id": "1532244186"
               }
             }
           ]

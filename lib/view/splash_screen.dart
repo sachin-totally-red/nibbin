@@ -1,8 +1,11 @@
+import 'package:amplitude_flutter/identify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nibbin_app/common/constants.dart' as appConst;
 import 'package:nibbin_app/common/database_helpers.dart';
 import 'package:nibbin_app/common/version_check.dart';
 import 'package:nibbin_app/model/category.dart';
+import 'package:nibbin_app/resource/amplitude_repository.dart';
 import 'package:nibbin_app/resource/category_repository.dart';
 import 'package:nibbin_app/view/category_selection_page.dart';
 import 'dart:async';
@@ -25,6 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future navigationPage() async {
+    //Initializing Amplitude Instance
+    /*AmplitudeRepository _amplitudeRepository = AmplitudeRepository();
+    await _amplitudeRepository.initializeAmplitude();*/
+
     CategoryRepository _categoryRepository = CategoryRepository();
     List<SavedCategories> savedCategoriesList =
         await _categoryRepository.fetchAllSavedCategories();

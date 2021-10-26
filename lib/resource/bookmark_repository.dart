@@ -5,7 +5,7 @@ import 'package:nibbin_app/resource/api_handler.dart';
 class BookmarkRepository {
   APIHandler _apiHandler = APIHandler();
 
-  Future fetchAllSavedBookmarks() async {
+  Future fetchAllSavedBookmarks(/*{String cardType = "news"}*/) async {
     DatabaseHelper helper = DatabaseHelper.instance;
     var maps = await helper.queryAllDataOnTableName(tableBookmarks);
     List<SavedBookmarks> savedBookmarks = List<SavedBookmarks>();
@@ -13,6 +13,11 @@ class BookmarkRepository {
       savedBookmarks =
           maps.map<SavedBookmarks>((i) => SavedBookmarks.fromMap(i)).toList();
     }
+    /*if (cardType == "news") {
+      savedBookmarks.removeWhere((element) => element.type == "graphics");
+    } else if (cardType == "graphics") {
+      savedBookmarks.removeWhere((element) => element.type == "news");
+    }*/
     return savedBookmarks;
   }
 
@@ -24,12 +29,12 @@ class BookmarkRepository {
         SavedBookmarks savedBookmarks = SavedBookmarks(
           postID: _post.id,
           imageSrc: _post.imageSrc ??
-              "https://i.picsum.photos/id/352/500/500.jpg?hmac=-E0Zo7evjUyTTEVC4YJW-pUDmGC2dMDxBvGZjWR7yv4",
-          title: _post.title,
-          story: _post.shortDesc,
-          link: _post.link,
+              "https://i.picsum.photos/id/42/200/300.jpg?hmac=RFAv_ervDAXQ4uM8dhocFa6_hkOkoBLeRR35gF8OHgs",
+          title: _post.headline ?? "",
+          story: _post.shortDesc ?? "",
+          link: _post.link ?? "",
           type: _post.type ?? "news",
-          storyDate: _post.storyDate,
+          storyDate: _post.storyDate ?? "",
         );
 
         DatabaseHelper helper = DatabaseHelper.instance;

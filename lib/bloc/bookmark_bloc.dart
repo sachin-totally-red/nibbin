@@ -7,23 +7,44 @@ import 'package:rxdart/rxdart.dart';
 class BookmarkBloc {
   final _bookmarkRepository = BookmarkRepository();
   final _bookmarkFetcher = PublishSubject<List<SavedBookmarks>>();
+  final _graphicsBookmarkFetcher = PublishSubject<List<SavedBookmarks>>();
   final _bookmarkDeleter = PublishSubject<int>();
-  /*BehaviorSubject<List<SavedBookmarks>> _bookmarkFetcher =
-      BehaviorSubject.seeded(List<SavedBookmarks>());*/
 
   Stream<List<SavedBookmarks>> get allBookmarks => _bookmarkFetcher.stream;
+  Stream<List<SavedBookmarks>> get allGraphicsBookmarks =>
+      _graphicsBookmarkFetcher.stream;
   Stream<int> get deleteBookmark => _bookmarkDeleter.stream;
 
-  fetchAllSavedBookmarks() async {
+  fetchAllSavedBookmarks(
+      {BookmarksPageState
+          bookmarksPageState /*, String cardType = "news"*/}) async {
     try {
-      List<SavedBookmarks> bookmarkModel =
-          await _bookmarkRepository.fetchAllSavedBookmarks();
+      List<SavedBookmarks> bookmarkModel = await _bookmarkRepository
+          .fetchAllSavedBookmarks(/*cardType: cardType*/);
       _bookmarkFetcher.sink.add(bookmarkModel);
+      if (bookmarksPageState != null) {
+        bookmarksPageState.setState(() {});
+      }
     } catch (e) {
       print(e.toString());
       _bookmarkFetcher.sink.addError(Constants.connectionError);
     }
   }
+
+  /*fetchAllSavedGraphicsBookmarks(
+      {BookmarksPageState bookmarksPageState, String cardType = "news"}) async {
+    try {
+      List<SavedBookmarks> bookmarkModel =
+          await _bookmarkRepository.fetchAllSavedBookmarks(cardType: cardType);
+      _graphicsBookmarkFetcher.sink.add(bookmarkModel);
+      if (bookmarksPageState != null) {
+        bookmarksPageState.setState(() {});
+      }
+    } catch (e) {
+      print(e.toString());
+      _graphicsBookmarkFetcher.sink.addError(Constants.connectionError);
+    }
+  }*/
 
   deleteSelectedBookmark({int id}) async {
     try {
@@ -43,12 +64,12 @@ class BookmarkBloc {
       fetchAllSavedBookmarks();
     } catch (e) {
       print(e.toString());
-//      _bookmarkDeleter.sink.addError(Constants.connectionError);
     }
   }
 
   dispose() {
     _bookmarkFetcher.close();
     _bookmarkDeleter.close();
+    _graphicsBookmarkFetcher.close();
   }
 }

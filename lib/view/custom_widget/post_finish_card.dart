@@ -17,6 +17,7 @@ class NoPostLeftCardState extends State<NoPostLeftCard> {
   Widget build(BuildContext context) {
     return Card(
       color: Color(0xFF1A101F),
+      elevation: 0,
       margin: EdgeInsets.only(bottom: 40, top: 20),
       child: Column(
         children: <Widget>[

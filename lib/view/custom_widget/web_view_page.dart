@@ -53,7 +53,8 @@ class WebViewPageState extends State<WebViewPage>
         /*child: SlideTransition(
           position: _offsetAnimation,*/
         child: Material(
-          shadowColor: Colors.blue,
+          shadowColor: Color(0xFF1A101F),
+          color: Color(0xFF1A101F),
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -128,17 +129,18 @@ class WebViewPageState extends State<WebViewPage>
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 5),
-            child: Center(
-              child: Text(
-                'Nibbin',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                ),
+          Center(
+            child: Image.asset(
+              "assets/images/nibbin_logo_white.png",
+              width: MediaQuery.of(context).size.width * 117 / 360,
+              height: MediaQuery.of(context).size.height * 35 / 640,
+            ), /*Text(
+              'Nibbin',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
               ),
-            ),
+            ),*/
           ),
         ],
       ),

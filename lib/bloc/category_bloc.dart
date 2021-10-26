@@ -25,9 +25,7 @@ class CategoryBloc {
           fetchedCategory.alreadySelected = true;
           selectedCategoryList.add(fetchedCategory);
         }
-        ;
       });
-
       _categoriesFetcher.sink.add(categoryModel);
     } catch (e) {
       print(e.toString());

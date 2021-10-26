@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Nibbin App',

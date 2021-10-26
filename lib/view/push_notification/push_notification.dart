@@ -34,80 +34,73 @@ class PushNotificationsManager {
 
       await Firebase.initializeApp();
       //Saving Device Token to the FireStore.
-      String tokenSaved = await getStringValuesSF("tokenAlreadySaved");
-      if (tokenSaved == null) {
-        String token = await _firebaseMessaging.getToken();
-        if (token != null) await addStringToSF("tokenAlreadySaved", "Yes");
-
-        final fireStoreDBRef = FirebaseFirestore.instance;
-        await fireStoreDBRef
-            .collection("pushtokens")
-            .where('devtoken', isEqualTo: token)
-            .get()
-            .then((value) async {
-          if (value.size == 0) {
-            String notificationEnabled =
-                await getStringValuesSF("pushNotification");
-            DocumentReference ref =
-                await fireStoreDBRef.collection("pushtokens").add({
-              'devtoken': token,
-              "notificationEnabled": notificationEnabled ?? "YES",
-              "categories": []
-            });
-            print("FireStore ref : $ref");
-          }
-        });
-      }
+      /*String deviceToken = await getStringValuesSF("DeviceToken");*/
+      final fireStoreDBRef = FirebaseFirestore.instance;
+      /*if (deviceToken == null) {*/
+      String token = await _firebaseMessaging.getToken();
+      /*if (token != null) */ await addStringToSF("DeviceToken", token);
+      await fireStoreDBRef
+          .collection("pushtokens")
+          .where('devtoken', isEqualTo: token)
+          .get()
+          .then((value) async {
+        if (value.size == 0) {
+          String notificationEnabled =
+              await getStringValuesSF("pushNotification");
+          DocumentReference ref =
+              await fireStoreDBRef.collection("pushtokens").add({
+            'devtoken': token,
+            "notificationEnabled": notificationEnabled ?? "YES",
+            "categories": []
+          });
+          print("FireStore ref : $ref");
+        }
+      });
+      /*} else {
+        //Check if device token has changed
+        */ /*await fireStoreDBRef
+            .collection("pushtokens").where('devtoken', isEqualTo: deviceToken).get().*/ /*
+      }*/
     } catch (ex) {
       print(ex.toString());
     }
   }
 
   Future<void> handleNotificationOnTapEvent(context) {
-    HomeRepository _homeRepository = HomeRepository();
     try {
       _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
-          print("onMessage: $message");
-          var tag = message['notification']['title'];
-          if (tag == 'puppy') {
-            // go to puppy page
-          } else if (tag == 'catty') {
-            // go to catty page
-          }
+          /*print("onMessage: $message");
+          await redirectToNotificationPage(message, context);*/
         },
         onLaunch: (Map<String, dynamic> message) async {
           print("onLaunch: $message");
-          Post response = await _homeRepository
-              .fetchSingleNews(int.parse(message["data"]["newsID"]));
-
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NotificationNewsPage(
-                news: response,
-              ),
-            ),
-          );
-          // TODO optional
+          await redirectToNotificationPage(message, context);
         },
         onResume: (Map<String, dynamic> message) async {
           print("onResume: $message");
-          Post response = await _homeRepository
-              .fetchSingleNews(int.parse(message["data"]["newsID"]));
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => NotificationNewsPage(
-                news: response,
-              ),
-            ),
-          );
-          // TODO optional
+          await redirectToNotificationPage(message, context);
         },
       );
     } catch (e) {
       print(e.toString());
     }
   }
+}
+
+Future redirectToNotificationPage(
+    Map<String, dynamic> message, BuildContext context) async {
+  HomeRepository _homeRepository = HomeRepository();
+  String newsID =
+      message["data"] != null ? (message["data"]["newsID"]) : message["newsID"];
+  Post response = await _homeRepository.fetchSingleNews(int.parse(newsID));
+
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => NotificationNewsPage(
+        news: response,
+      ),
+    ),
+  );
 }

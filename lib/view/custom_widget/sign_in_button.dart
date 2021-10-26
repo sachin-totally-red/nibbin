@@ -24,26 +24,28 @@ class SignInButton extends StatelessWidget {
               color: borderColor != null ? borderColor : Colors.transparent)),
       child: RaisedButton(
         elevation: 0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              imagePath,
-              height: 20.02,
-              width: 20.02,
-            ),
-            SizedBox(
-              width: 10.94,
-            ),
-            Text(
-              buttonText,
-              style: TextStyle(
-                  color: Color(0xFF1A101F),
-                  fontSize: 14,
-                  letterSpacing: 0.14,
-                  fontWeight: FontWeight.w400),
-            ),
-          ],
+        child: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                imagePath,
+                height: 20.02,
+                width: 20.02,
+              ),
+              SizedBox(
+                width: 10.94,
+              ),
+              Text(
+                buttonText,
+                style: TextStyle(
+                    color: Color(0xFF1A101F),
+                    fontSize: 14,
+                    letterSpacing: 0.14,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
         ),
         onPressed: onPressed,
       ),

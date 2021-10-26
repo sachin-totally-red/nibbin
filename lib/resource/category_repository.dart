@@ -1,6 +1,5 @@
 import 'package:nibbin_app/common/database_helpers.dart';
 import 'package:nibbin_app/model/category.dart';
-
 import 'api_handler.dart';
 
 class CategoryRepository {

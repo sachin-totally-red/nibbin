@@ -38,7 +38,7 @@ class DrawerOption extends StatelessWidget {
             width: screenSize.width * imageWidth / 360,
           ),
           SizedBox(
-            width: space,
+            width: ScreenUtil().setSp(space, allowFontScalingSelf: true),
           ),
           Text(
             optionName,

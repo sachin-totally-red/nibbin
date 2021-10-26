@@ -1,17 +1,13 @@
 import 'dart:io';
-
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nibbin_app/common/constants.dart';
 import 'package:nibbin_app/view/connection_problem_page.dart';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //TODO: This needs to be update as per google and app store URLs
-const APP_STORE_URL =
-    'https://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareUpdate?id=YOUR-APP-ID&mt=8';
-const PLAY_STORE_URL =
-    'https://play.google.com/store/apps/details?id=YOUR-APP-ID';
 
 Future versionCheck(context) async {
   //Get Current installed version of app
@@ -65,13 +61,13 @@ _showVersionDialog(context) async {
       String btnLabel = "Update Now";
       String btnLabelCancel = "Later";
       return Platform.isIOS
-          ? new CupertinoAlertDialog(
+          ? CupertinoAlertDialog(
               title: Text(title),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
                   child: Text(btnLabel),
-                  onPressed: () => _launchURL(APP_STORE_URL),
+                  onPressed: () => _launchURL(Constants.appStoreLink),
                 ),
                 FlatButton(
                   child: Text(btnLabelCancel),
@@ -79,13 +75,13 @@ _showVersionDialog(context) async {
                 ),
               ],
             )
-          : new AlertDialog(
+          : AlertDialog(
               title: Text(title),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
                   child: Text(btnLabel),
-                  onPressed: () => _launchURL(PLAY_STORE_URL),
+                  onPressed: () => _launchURL(Constants.playStoreLink),
                 ),
                 FlatButton(
                   child: Text(btnLabelCancel),

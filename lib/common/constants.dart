@@ -1,7 +1,9 @@
+import 'package:amplitude_flutter/amplitude.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nibbin_app/common/database_helpers.dart';
 import 'package:nibbin_app/view/bookmarks.dart';
+import 'package:nibbin_app/view/custom_widget/custom_snackbar.dart';
 import 'package:nibbin_app/view/home_page.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
@@ -11,15 +13,26 @@ class Constants {
   static final String appStoreUrl =
       "https://apps.apple.com/us/app/facebook/id284882215";*/
 
-  static String apiUrl = "https://console-api.bluone.in/";
+  // Create the instance for Amplitude
+  static final Amplitude analytics =
+      Amplitude.getInstance(/*instanceName: "project"*/);
+
+  static final String appStoreLink =
+      'https://itunes.apple.com/us/app/nibbin/id1532244186';
+  static final String playStoreLink =
+      'https://play.google.com/store/apps/details?id=in.bluone.app.nibbin';
+
+  static String apiUrl =
+      /*"https://8e228a39690c.ngrok.io/" */ "https://console-api.bluone.in/";
 
   //ToDo: New App Changes start
   static const String connectionError =
-      "Services are not reachable. Please try later";
+      "Oops. Seems like we are working on something while we shouldn’t be. BRB!"
+      /*"Services are not reachable. Please try later"*/;
   static const String appStoreUrl =
-      "Install Nibbin app by clicking on https://bluone.page.link/download";
+      "Download Nibbin for short, crisp, and updated healthcare news https://bluone.page.link/download";
   static const String playStoreUrl =
-      "Install Nibbin app by clicking on https://bluone.page.link/downloadApp";
+      "Download Nibbin for short, crisp, and updated healthcare news https://bluone.page.link/downloadApp";
   static const String termsConditionUrl =
       "https://nibb.in/terms-and-conditions";
   static const String privacyPolicyUrl = "https://nibb.in/privacy-policy";
@@ -34,12 +47,12 @@ class Constants {
 
   static final RateMyApp rateMyApp = RateMyApp(
     preferencesPrefix: 'rateMyApp_',
-    minDays: 3,
-    minLaunches: 7,
-    remindDays: 2,
-    remindLaunches: 5,
-/*    googlePlayIdentifier: 'fr.skyost.example',
-    appStoreIdentifier: '1491556149',*/
+    minDays: 0,
+    minLaunches: 0,
+    remindDays: 0,
+    remindLaunches: 0,
+    googlePlayIdentifier: 'in.bluone.app.nibbin',
+    appStoreIdentifier: '1532244186',
   );
   //ToDo: New App Changes end
 
@@ -68,9 +81,22 @@ class Constants {
 
   static showReportSuccessSnackBar() {
     return SnackBar(
-      backgroundColor: Color(0xFF101C66),
+      backgroundColor: Color(0xFF40343c),
+      margin: EdgeInsets.only(bottom: 40, left: 8, right: 8),
       content: Text(
-          'Selected news reported successfully!\nThanks for your feedback!'),
+        'Selected news reported successfully!\nThanks for your feedback!',
+        style: TextStyle(
+          color: Color(0xFFFFFFFF),
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
       action: SnackBarAction(
         label: 'Close',
         onPressed: () {
@@ -83,6 +109,7 @@ class Constants {
   static showUndoSnackBar(BookmarksPageState bookmarksPageState,
       SavedBookmarks savedBookmarks, HomePageState homePageState) {
     return SnackBar(
+      margin: EdgeInsets.only(bottom: 40, left: 8, right: 8),
       backgroundColor: Color(0xFF40343c),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
@@ -100,7 +127,7 @@ class Constants {
       ),
       action: SnackBarAction(
         label: 'UNDO',
-        textColor: Color(0xFFFFBA08),
+        textColor: Colors.white,
         onPressed: () {
           // Some code to undo the change.
           bookmarksPageState.bookmarkBloc
@@ -111,7 +138,41 @@ class Constants {
     );
   }
 
-  /*static showCategorySelectionLimitError() {
+  /*static showUndoGraphicsSnackBar(BookmarksPageState bookmarksPageState,
+      SavedBookmarks savedBookmarks, HomePageState homePageState) {
+    return SnackBar(
+      margin: EdgeInsets.only(bottom: 40, left: 8, right: 8),
+      backgroundColor: Color(0xFF40343c),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      content: Text(
+        'Bookmark removed',
+        style: TextStyle(
+          color: Color(0xFFFFFFFF),
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'UNDO',
+        textColor: Colors.white,
+        onPressed: () async {
+          final _bookmarkRepository = BookmarkRepository();
+          int result =
+              await _bookmarkRepository.restoreBookmark(savedBookmarks);
+          await bookmarksPageState.bookmarkBloc
+              .fetchAllSavedGraphicsBookmarks(cardType: 'graphics');
+          homePageState.bloc.fetchAllPosts();
+        },
+      ),
+    );
+  }*/
+
+  static showCategorySelectionLimitError() {
     return SnackBar(
       backgroundColor: Color(0xFF40343c),
       behavior: SnackBarBehavior.floating,
@@ -121,9 +182,121 @@ class Constants {
         ),
       ),
       content: Text(
-        'Please choose minimum 3 categories to continue.',
+        'Minimum 3 groups are required to be selected before proceeding further.',
         style: TextStyle(
           color: Color(0xFFE03B30),
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Close',
+        textColor: Colors.white,
+        onPressed: () {},
+      ),
+    );
+  }
+
+  static showNewNewsSnackBar({int newStoryCount, Function onPressed}) {
+    return MySnack(
+      backgroundColor: Color(0xFF3b313f),
+      duration: Duration(seconds: 10),
+      action: CustomSnackBarAction(
+        label: '$newStoryCount unread stories',
+        textColor: Color(0xFFFFFFFF),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
+  static showSuccessfulLogin() {
+    return SnackBar(
+      backgroundColor: Color(0xFF40343c),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      content: Text(
+        'Log in successful! :)',
+        style: TextStyle(
+          color: Colors.white,
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Close',
+        textColor: Colors.white,
+        onPressed: () {},
+      ),
+    );
+  }
+
+  static showSuccessfulAddBookmarked() {
+    return SnackBar(
+      backgroundColor: Color(0xFF40343c),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      content: Text(
+        'Saved to Bookmarks :)',
+        style: TextStyle(
+          color: Colors.white,
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Close',
+        textColor: Colors.white,
+        onPressed: () {},
+      ),
+    );
+  }
+
+  static showSuccessfulRemoveBookmarked() {
+    return SnackBar(
+      backgroundColor: Color(0xFF40343c),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      content: Text(
+        'Bookmark removed. :/',
+        style: TextStyle(
+          color: Colors.white,
+          letterSpacing: 0.14,
+          fontSize: 14,
+        ),
+      ),
+      action: SnackBarAction(
+        label: 'Close',
+        textColor: Colors.white,
+        onPressed: () {},
+      ),
+    );
+  }
+
+  static showCustomSnackBar({String errorText, bool error = false}) {
+    return SnackBar(
+      backgroundColor: Color(0xFF40343c),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      content: Text(
+        errorText,
+        style: TextStyle(
+          color: error ? Color(0xFFE03B30) : Color(0xFF63A375),
           letterSpacing: 0.14,
           fontSize: 14,
         ),
@@ -134,5 +307,5 @@ class Constants {
         onPressed: () {},
       ),
     );
-  }*/
+  }
 }

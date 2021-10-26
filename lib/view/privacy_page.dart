@@ -22,7 +22,7 @@ class _PrivacyPageState extends State<PrivacyPage> {
             centerTitle: false,
             elevation: 0,
             title: Text(
-              "Privacy",
+              "Privacy Policy",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
             leading: IconButton(

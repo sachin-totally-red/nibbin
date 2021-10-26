@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nibbin_app/common/constants.dart';
 import 'package:rate_my_app/rate_my_app.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppRatingRepository {
   static rateApp(RateMyApp _rateMyApp, BuildContext context,
@@ -54,10 +56,15 @@ class AppRatingRepository {
                             ' star(s) !');
                         // You can handle the result as you want (for instance if the user puts 1 star then open your contact page, if he puts more then open the store page, etc...).
                         // This allows to mimic the behavior of the default "Rate" button. See "Advanced > Broadcasting events" for more information :
-                        await _rateMyApp
+                        /*await _rateMyApp
                             .callEvent(RateMyAppEventType.rateButtonPressed);
                         Navigator.pop<RateMyAppDialogButton>(
-                            context, RateMyAppDialogButton.rate);
+                            context, RateMyAppDialogButton.rate);*/
+
+                        if (Platform.isAndroid)
+                          _launchURL(Constants.playStoreLink);
+                        else
+                          _launchURL(Constants.appStoreLink);
                       },
                     ),
                     FlatButton(
@@ -80,5 +87,13 @@ class AppRatingRepository {
         initialRating: rating,
       ),
     );
+  }
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
